@@ -12,7 +12,7 @@ function Profile(){
     <div class="w-auto bg-white rounded p-3 shadow-lg h-screen all" >
           {/* div for avatar  */}
         <div class="flex items-center space-x-4 p-2 mb-5 avatar-info">
-            <img class="h-12 rounded-full avatar" src={require('./photo_2022-11-12_22-31-04.jpg')} alt=" Mohamed Adel "></img>
+           
             <div>
                 <h4 class=" text-sm text-gray-700 capitalize font-poppins tracking-wide font-bold lable">Mohamed Adel</h4>
                 <span class="text-sm tracking-wide flex items-center space-x-1 lable">
