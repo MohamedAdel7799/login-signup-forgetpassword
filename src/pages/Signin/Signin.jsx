@@ -1,23 +1,34 @@
-import React, { useState } from "react";
+import axios from "axios";
+import { useState } from "react";
+
 
 
 
 function Signin(){
-    const [user , setuser ]=useState({
-        email:"",
-        password:"",
 
-    })
+
+    const [user,setuser]=useState({
+        email:"",
+        password:""
+
+    });
 
     function getuserinfo(e){
-        e.preventDefault()
-        let myuser={...user}
-        myuser[e.target.name]=e.target.value;
-        setuser(myuser)
-        console.log(myuser)
-    };
+    let myuser={...user}
+    myuser[e.target.name]=e.target.value;
+    setuser(myuser)
+ }
 
 
+
+ async function usrsubmit(e)
+          {
+           e.preventDefault()
+           let respons= await axios.post('http://103.48.193.225:9000/customers/login',user)   
+           console.log(respons)
+           console.log(user);
+           localStorage.setItem("usertoken",respons.token)
+          } 
  
     return(
         <>
@@ -29,14 +40,14 @@ function Signin(){
                             <h1 className="text-xl font-simibold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                                 Welcome Back ! 
                             </h1>
-                            <form className="space-y-4 md:space-y-6" action="#" onSubmit={getuserinfo} >
+                            <form className="space-y-4 md:space-y-6" action="#"  onSubmit={usrsubmit}>
                                 <div>
                                     <label  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email </label>
-                                    <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="" onChange={getuserinfo} ></input>
+                                    <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required=""  onChange={getuserinfo} ></input>
                                 </div>      
                                 <div>
                                     <label  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> password</label>
-                                    <input  name="password" id="confirm-password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" onChange={getuserinfo}></input>
+                                    <input  name="password" id="confirm-password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required=""  onChange={getuserinfo}></input>
                                 </div>
                                 <div className="flex items-start">
                                     <div className="flex items-center h-5">
@@ -60,8 +71,7 @@ function Signin(){
                         </div>
                     </div>
                 </div>
-            </section>
-
+         </section>
         </>
     )
 }
